@@ -1,0 +1,208 @@
+/* =========================
+   DESIGN TOKENS
+   ========================= */
+:root {
+  --bg0: #0b1020;
+  --bg1: #0f1b2d;
+  --bg2: #101f1a;
+  --bg3: #1c1422;
+  --bg4: #151515;
+
+  --text: #eaeaea;
+  --muted: #b6b6b6;
+  --card: rgba(255, 255, 255, 0.06);
+  --border: rgba(255, 255, 255, 0.12);
+
+  /* tinggi halaman (di-set dari JS) */
+  --scroll-h: 100vh;
+}
+
+/* =========================
+   RESET & BASE
+   ========================= */
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  color: var(--text);
+  background: #000;
+  font-family: ui-sans-serif, system-ui, -apple-system,
+    Segoe UI, Roboto, Helvetica, Arial;
+  overflow-x: hidden;
+}
+
+/* =========================
+   VERTICAL SCROLL SPACER
+   (yang bikin page bisa scroll ke bawah)
+   ========================= */
+.v-spacer {
+  height: var(--scroll-h);
+}
+
+/* =========================
+   FIXED VIEWPORT WRAP
+   ========================= */
+.h-wrap {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+}
+
+/* =========================
+   HORIZONTAL TRACK
+   ========================= */
+.h-track {
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+}
+
+/* =========================
+   EACH SECTION (FULL SCREEN)
+   ========================= */
+.h-section {
+  width: 100vw;
+  height: 100vh;
+  flex: 0 0 100vw;
+
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  position: relative;
+}
+
+/* =========================
+   BACKGROUND VARIATIONS
+   ========================= */
+.bg-0 {
+  background:
+    radial-gradient(1200px 600px at 20% 20%, #2a3fff33, transparent),
+    var(--bg0);
+}
+.bg-1 {
+  background:
+    radial-gradient(1200px 600px at 80% 20%, #00d1ff22, transparent),
+    var(--bg1);
+}
+.bg-2 {
+  background:
+    radial-gradient(1200px 600px at 20% 80%, #39ff8820, transparent),
+    var(--bg2);
+}
+.bg-3 {
+  background:
+    radial-gradient(1200px 600px at 80% 80%, #ff4fd822, transparent),
+    var(--bg3);
+}
+.bg-4 {
+  background:
+    radial-gradient(1200px 600px at 50% 50%, #ffffff14, transparent),
+    var(--bg4);
+}
+
+/* =========================
+   CONTENT LAYOUT
+   ========================= */
+.content {
+  width: min(920px, 100%);
+}
+
+.eyebrow {
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 12px;
+  color: var(--muted);
+  margin: 0 0 10px;
+}
+
+.title {
+  font-size: clamp(40px, 7vw, 72px);
+  line-height: 1.02;
+  margin: 0 0 10px;
+}
+
+.subtitle {
+  font-size: clamp(16px, 2.2vw, 20px);
+  color: var(--muted);
+  margin: 0 0 18px;
+  max-width: 55ch;
+}
+
+/* =========================
+   CARD (GLASS FEEL)
+   ========================= */
+.card {
+  padding: 18px 16px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+}
+
+/* =========================
+   ENTER ANIMATION
+   ========================= */
+.h-section .content {
+  opacity: 0;
+  transform: translateX(18px) scale(0.99);
+  transition: 520ms ease;
+}
+
+.h-section.is-active .content {
+  opacity: 1;
+  transform: translateX(0) scale(1);
+}
+
+/* =========================
+   MOBILE TWEAKS
+   ========================= */
+@media (max-width: 480px) {
+  .h-section {
+    padding: 18px;
+  }
+
+  .card {
+    border-radius: 14px;
+  }
+}
+
+/* scrollable area inside each section */
+.frame-scroll {
+  height: calc(100vh - 140px); /* ruang untuk navbar + padding section */
+  max-height: none;
+  overflow-y: auto;
+  padding-right: 10px;
+  overscroll-behavior: contain;
+}
+
+@media (max-width: 480px) {
+  .frame-scroll {
+    height: calc(100vh - 120px);
+    padding-right: 6px;
+  }
+}
+
+/* subtle scrollbar (optional) */
+.frame-scroll::-webkit-scrollbar {
+  width: 10px;
+}
+.frame-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+.frame-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.16) transparent;
+}
+
